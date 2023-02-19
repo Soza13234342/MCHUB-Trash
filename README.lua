@@ -8543,7 +8543,18 @@ function Hop()
 		end
 	end)
 end
+task.spawn(function()
+while wait() do
+pcall(function()
+if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("GetUnlockables").FlamingoAccess == nil then
+	_G.Unlockabls = false
 
+else
+	_G.Unlockabls = true
+end
+end)
+end
+end)
 function Auto_Farm()
 	pcall(function()
 		if _G.Auto_Farm and not Auto_Raid and not _G.BreakAllProcess then
@@ -8831,7 +8842,34 @@ function Auto_Farm()
 				elseif game.ReplicatedStorage:FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") then
 					toTarget(game.ReplicatedStorage:FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]").HumanoidRootPart.CFrame*CFrame.new(0,30,0))
 				end
-			elseif World2 and I_HAVE_FRUIT_1M == true and MyLevel >= 1000 then
+			elseif World2 and game.Workspace.Enemies:FindFirstChild("Fajita [Lv. 925] [Boss]") or game.ReplicatedStorage:FindFirstChild("Fajita [Lv. 925] [Boss]") then
+				if game:GetService("Workspace").Enemies:FindFirstChild("Fajita [Lv. 925] [Boss]") then
+					for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+						if v.Name == "Fajita [Lv. 925] [Boss]" and v.Humanoid.Health > 0 and v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") then
+							repeat wait()
+								StartMagnet = true
+								FastAttackSpeed = true
+								if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+									game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
+								end
+								EquipWeapon(SelectToolWeapon)
+								v.HumanoidRootPart.Size = Vector3.new(60,60,60)
+								v.Humanoid.JumpPower = 0
+								v.Humanoid.WalkSpeed = 0
+								v.HumanoidRootPart.CanCollide = false
+								v.Humanoid:ChangeState(11)
+								toTarget(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
+							until not _G.Auto_Farm or v.Humanoid.Health <= 0
+							StartMagnet = false
+							FastAttackSpeed = false
+						end
+					end
+				else
+					repeat wait()
+						toTarget(CFrame.new(-2138.48804, 72.1689606, -4326.45508, -0.956310987, 6.75805367e-08, 0.292351395, 6.95096816e-08, 1, -3.7888066e-09, -0.292351395, 1.66979746e-08, -0.956310987) * CFrame.new(0,30,0))
+					until (CFrame.new(-2138.48804, 72.1689606, -4326.45508, -0.956310987, 6.75805367e-08, 0.292351395, 6.95096816e-08, 1, -3.7888066e-09, -0.292351395, 1.66979746e-08, -0.956310987).Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 30 or not _G.Auto_Farm
+				end
+			elseif World2 and I_HAVE_FRUIT_1M == true and MyLevel >= 1000 and game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("GetUnlockables").FlamingoAccess == nil then
 				if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("GetUnlockables").FlamingoAccess == nil then
 					TabelDevilFruitStore = {}
 					TabelDevilFruitOpen = {}
@@ -8867,59 +8905,30 @@ function Auto_Farm()
 					Com("F_","TalkTrevor","2")
 					Com("F_","TalkTrevor","3")	
 				end
-			elseif World2 and game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("GetUnlockables").FlamingoAccess ~= nil and game.Workspace.Enemies:FindFirstChild("Don Swan [Lv. 1000] [Boss]") or game.ReplicatedStorage:FindFirstChild("Don Swan [Lv. 1000] [Boss]") then
-				if game:GetService("Workspace").Enemies:FindFirstChild("Don Swan [Lv. 1000] [Boss]") then
-					for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-						if v.Name == "Don Swan [Lv. 1000] [Boss]" and v.Humanoid.Health > 0 and v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") then
-							repeat wait()
-								StartMagnet = true
-								FastAttackSpeed = true
-								if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
-									game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
-								end
-								EquipWeapon(SelectToolWeapon)
-								v.HumanoidRootPart.Size = Vector3.new(60,60,60)
-								v.Humanoid.JumpPower = 0
-								v.Humanoid.WalkSpeed = 0
-								v.HumanoidRootPart.CanCollide = false
-								v.Humanoid:ChangeState(11)
-								toTarget(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
-							until not _G.Auto_Farm or v.Humanoid.Health <= 0
-							StartMagnet = false
-							FastAttackSpeed = false
+			elseif World2 and MyLevel >= 1000 and _G.Unlockabls == true then
+				if game.Workspace.Enemies:FindFirstChild("Don Swan [Lv. 1000] [Boss]") or game.ReplicatedStorage:FindFirstChild("Don Swan [Lv. 1000] [Boss]") then
+					if game:GetService("Workspace").Enemies:FindFirstChild("Don Swan [Lv. 1000] [Boss]") then
+						for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+							if v.Name == "Don Swan [Lv. 1000] [Boss]" and v.Humanoid.Health > 0 and v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") then
+								repeat wait()
+									FastAttackSpeed = true
+									if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+										game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
+									end
+									EquipWeapon(SelectToolWeapon)
+									v.HumanoidRootPart.Size = Vector3.new(60,60,60)
+									v.Humanoid.JumpPower = 0
+									v.Humanoid.WalkSpeed = 0
+									v.HumanoidRootPart.CanCollide = false
+									v.Humanoid:ChangeState(11)
+									toTarget(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
+								until not _G.Auto_Farm or v.Humanoid.Health <= 0
+								FastAttackSpeed = false
+							end
 						end
+					else
+						toTarget(Vector3.new(2284.912109375, 15.537666320801, 905.48291015625)) 
 					end
-				else
-					repeat wait()
-						game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(2284.912109375, 15.537666320801, 905.48291015625)) 
-					until (CFrame.new(2284.912109375, 15.537666320801, 905.48291015625).Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 4 or not _G.Auto_Farm
-				end
-			elseif World2 and game.Workspace.Enemies:FindFirstChild("Fajita [Lv. 925] [Boss]") or game.ReplicatedStorage:FindFirstChild("Fajita [Lv. 925] [Boss]") then
-				if game:GetService("Workspace").Enemies:FindFirstChild("Fajita [Lv. 925] [Boss]") then
-					for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-						if v.Name == "Fajita [Lv. 925] [Boss]" and v.Humanoid.Health > 0 and v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") then
-							repeat wait()
-								StartMagnet = true
-								FastAttackSpeed = true
-								if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
-									game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
-								end
-								EquipWeapon(SelectToolWeapon)
-								v.HumanoidRootPart.Size = Vector3.new(60,60,60)
-								v.Humanoid.JumpPower = 0
-								v.Humanoid.WalkSpeed = 0
-								v.HumanoidRootPart.CanCollide = false
-								v.Humanoid:ChangeState(11)
-								toTarget(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
-							until not _G.Auto_Farm or v.Humanoid.Health <= 0
-							StartMagnet = false
-							FastAttackSpeed = false
-						end
-					end
-				else
-					repeat wait()
-						toTarget(CFrame.new(-2138.48804, 72.1689606, -4326.45508, -0.956310987, 6.75805367e-08, 0.292351395, 6.95096816e-08, 1, -3.7888066e-09, -0.292351395, 1.66979746e-08, -0.956310987))
-					until (CFrame.new(-2138.48804, 72.1689606, -4326.45508, -0.956310987, 6.75805367e-08, 0.292351395, 6.95096816e-08, 1, -3.7888066e-09, -0.292351395, 1.66979746e-08, -0.956310987).Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 4 or not _G.Auto_Farm
 				end
 			elseif World3 and game.Workspace.Enemies:FindFirstChild("Captain Elephant [Lv. 1875] [Boss]") or game.ReplicatedStorage:FindFirstChild("Captain Elephant [Lv. 1875] [Boss]") then
 				Auto_Farm_S:Set("Staus : Finding Twin Hooks")
