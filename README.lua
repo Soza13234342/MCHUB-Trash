@@ -9088,11 +9088,13 @@ function Auto_Farm()
 						end
 					end
 				elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BartiloQuestProgress","Bartilo") == 2 then
+					noclip = false
 					for F=1,8 do 
-						repeat wait();
+						repeat wait(1);
 							toTarget(workspace.Map.Dressrosa.BartiloPlates["Plate"..F].CFrame);
 						until x:DistanceFromCharacter(workspace.Map.Dressrosa.BartiloPlates["Plate"..F].CFrame.Position)<=5 or not _G.Auto_Farm
 					end;
+					noclip = true
 				end
 			elseif World2 and game.Players.LocalPlayer.Backpack:FindFirstChild("Fist of Darkness") or game.Players.LocalPlayer.Character:FindFirstChild("Fist of Darkness") then
 				Auto_Farm_S:Set("Staus : Spawn Drakbeard")
@@ -10583,7 +10585,7 @@ end)
 task.spawn(function()
 	game:GetService("RunService").Stepped:Connect(function()
 		pcall(function()
-			if _G.Auto_Farm then
+			if _G.Auto_Farm or noclip then
 				if syn then
 					setfflag("HumanoidParallelRemoveNoPhysics", "False")
 					setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False")
