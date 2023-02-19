@@ -7905,50 +7905,104 @@ local function Auto_Farm_Level()
 	GetQuest = game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest
 	local MyLevel = game.Players.LocalPlayer.Data.Level.Value
 	if MyLevel >= 15 and MyLevel <= 100 then
-		local CFrameMon = CFrame.new(-4698, 845, -1912)
-		if game:GetService("Workspace").Enemies:FindFirstChild("God's Guard [Lv. 450]") then
-			for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-				if _G.Auto_Farm and v.Name == "God's Guard [Lv. 450]" and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
-					repeat wait()
-						FarmtoTarget = toTarget(v.HumanoidRootPart.CFrame * CFrame.new(0,30,1))
-						if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 300 then
-							if FarmtoTarget then FarmtoTarget:Stop() end
-							for i2,v2 in pairs(game:GetService("Workspace").Enemies:GetChildren()) do 
-								if _G.Auto_Farm and v2.Name == "God's Guard [Lv. 450]" and v2:FindFirstChild("HumanoidRootPart") and v2:FindFirstChild("Humanoid") and v2.Humanoid.Health > 0 then
-									if InMyNetWork(v2.HumanoidRootPart) then
-										v2.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
-										v2.Humanoid.JumpPower = 0
-										v2.Humanoid.WalkSpeed = 0
-										v2.HumanoidRootPart.CanCollide = false
-										v2.Humanoid:ChangeState(14)
-										v2.Humanoid:ChangeState(11)
-										v2.HumanoidRootPart.Size = Vector3.new(55,55,55)
-										toTarget(v2.HumanoidRootPart.CFrame * CFrame.new(1,30,0))
+		if (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - Vector3.new(-7894.6176757813, 5547.1416015625, -380.29119873047)).Magnitude <= 3500 then
+			if game:GetService("Workspace").Enemies:FindFirstChild("Royal Squad [Lv. 525]") then
+				for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+					if v.Name == "Royal Squad [Lv. 525]" then
+						if v.Humanoid.Health > 0 then
+							if v:FindFirstChild("Humanoid") or v:FindFirstChild("HumanoidRootPart") and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 250 then
+								repeat wait()
+									if InMyNetWork(v.HumanoidRootPart) then
+										v.Humanoid.JumpPower = 0
+										v.Humanoid.WalkSpeed = 0
+										v.HumanoidRootPart.CanCollide = false
+										v.Humanoid:ChangeState(11)
+										v.Humanoid:ChangeState(14)
+										_G.PosMon = v.HumanoidRootPart.CFrame
+										Bringmob = true
+										FastAttackSpeed = true
+										if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
+										end
+										EquipWeapon(SelectToolWeapon)
+										if game.Players.LocalPlayer.Character:FindFirstChild("Black Leg") and game.Players.LocalPlayer.Character:FindFirstChild("Black Leg").Level.Value >= 150 then
+											game:service('VirtualInputManager'):SendKeyEvent(true, "V", false, game)
+											game:service('VirtualInputManager'):SendKeyEvent(false, "V", false, game)
+										end
+										if AttackRandomType == 1 then
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 1)
+										elseif AttackRandomType == 2 then
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 1, 30)
+										elseif AttackRandomType == 3 then
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(1, 1, -30)
+										elseif AttackRandomType == 4 then
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(30, 1, 0)
+										elseif AttackRandomType == 5 then
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(-30, 1, 0)
+										else
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 1)
+										end
 									end
-								end
+								until v.Humanoid.Health <= 0 or not _G.Auto_Farm
+								Bringmob = false
+								FastAttackSpeed = false
 							end
-							if game.Players.LocalPlayer.Character:FindFirstChild("Black Leg") and game.Players.LocalPlayer.Character:FindFirstChild("Black Leg").Level.Value >= 150 then
-								game:service('VirtualInputManager'):SendKeyEvent(true, "V", false, game)
-								game:service('VirtualInputManager'):SendKeyEvent(false, "V", false, game)
-							end
-							FastAttackSpeed = true
-							EquipWeapon(SelectToolWeapon)
 						end
-					until not (game:GetService("Workspace").Enemies:FindFirstChild("God's Guard [Lv. 450]")) or not _G.Auto_Farm or v.Humanoid.Health <= 0 or not v.Parent
-					FastAttackSpeed = false
+					end
 				end
+			elseif game:GetService("ReplicatedStorage"):FindFirstChild("Royal Squad [Lv. 525]") then
+				toTarget(game:GetService("ReplicatedStorage"):FindFirstChild("Royal Squad [Lv. 525]").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
+			elseif game:GetService("Workspace").Enemies:FindFirstChild("Shanda [Lv. 475]") then
+				for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+					if v.Name == "Shanda [Lv. 475]" then
+						if v.Humanoid.Health > 0 then
+							if v:FindFirstChild("Humanoid") or v:FindFirstChild("HumanoidRootPart") and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 250 then
+								repeat wait()
+									if InMyNetWork(v.HumanoidRootPart) then
+										v.Humanoid.JumpPower = 0
+										v.Humanoid.WalkSpeed = 0
+										v.HumanoidRootPart.CanCollide = false
+										v.Humanoid:ChangeState(11)
+										v.Humanoid:ChangeState(14)
+										_G.PosMon = v.HumanoidRootPart.CFrame
+										Bringmob = true
+										FastAttackSpeed = true
+										if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
+										end
+										EquipWeapon(SelectToolWeapon)
+										if game.Players.LocalPlayer.Character:FindFirstChild("Black Leg") and game.Players.LocalPlayer.Character:FindFirstChild("Black Leg").Level.Value >= 150 then
+											game:service('VirtualInputManager'):SendKeyEvent(true, "V", false, game)
+											game:service('VirtualInputManager'):SendKeyEvent(false, "V", false, game)
+										end
+										if AttackRandomType == 1 then
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 1)
+										elseif AttackRandomType == 2 then
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 1, 30)
+										elseif AttackRandomType == 3 then
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(1, 1, -30)
+										elseif AttackRandomType == 4 then
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(30, 1, 0)
+										elseif AttackRandomType == 5 then
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(-30, 1, 0)
+										else
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 1)
+										end
+									end
+								until v.Humanoid.Health <= 0 or not _G.Auto_Farm
+								Bringmob = false
+								FastAttackSpeed = false
+							end
+						end
+					end
+				end
+			elseif game:GetService("ReplicatedStorage"):FindFirstChild("Shanda [Lv. 475]") then
+				toTarget(game:GetService("ReplicatedStorage"):FindFirstChild("Shanda [Lv. 475]").HumanoidRootPart.CFrame * CFrame.new(0,30,0))
 			end
 		else
-			Modstween = toTarget(CFrameMon)
-			if World1 and (CFrameMon.Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).magnitude >1500 then
-				if Modstween then Modstween:Stop() end wait(.5)
-				game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-4607.8227539063, 872.54248046875, -1667.5568847656))
-			elseif (CFrameMon.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 150 then
-				if Modstween then Modstween:Stop() end
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrameMon
-			end 
+			game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-7894.6176757813, 5547.1416015625, -380.29119873047))			
 		end
-	elseif MyLevel >= 100 and MyLevel <= 300 then
+	elseif MyLevel >= 100 and MyLevel <= 300 and not tostring(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("PlayerHunter")):find("We heard some") then
 		if GetQuest.Visible == false then
 			game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("PlayerHunter")
 		elseif GetQuest.Visible == true then
