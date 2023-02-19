@@ -5,29 +5,20 @@ repeat wait() until game.ReplicatedStorage
 repeat wait() until game.ReplicatedStorage:FindFirstChild("Remotes");
 repeat wait() until game.Players.LocalPlayer:FindFirstChild("PlayerGui");
 repeat wait() until game.Players.LocalPlayer.PlayerGui:FindFirstChild("Main");
+
+local function ry(so)
+    game:GetService("VirtualInputManager"):SendMouseButtonEvent(so.AbsolutePosition.X+so.AbsoluteSize.X/2,so.AbsolutePosition.Y+50,0,true,so,1);
+    game:GetService("VirtualInputManager"):SendMouseButtonEvent(so.AbsolutePosition.X+so.AbsoluteSize.X/2,so.AbsolutePosition.Y+50,0,false,so,1);
+end;
+
 repeat wait()
 	if game.Players.LocalPlayer.Team == nil and game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Visible == true then
 		if _G.Teams == "Pirate" then
-			game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.Size = UDim2.new(0, 10000, 0, 10000)
-			game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.Position = UDim2.new(-4, 0, -5, 0)
-			game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.BackgroundTransparency = 1
-			wait(.5)
-			game:service'VirtualInputManager':SendMouseButtonEvent(500,500, 0, true, game, 1)
-			game:service'VirtualInputManager':SendMouseButtonEvent(500,500, 0, false, game, 1)
+			ry(game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton)
 		elseif _G.Teams == "Marine" then
-			game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Marines.Frame.ViewportFrame.TextButton.Size = UDim2.new(0, 10000, 0, 10000)
-			game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Marines.Frame.ViewportFrame.TextButton.Position = UDim2.new(-4, 0, -5, 0)
-			game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Marines.Frame.ViewportFrame.TextButton.BackgroundTransparency = 1
-			wait(.5)
-			game:service'VirtualInputManager':SendMouseButtonEvent(500,500, 0, true, game, 1)
-			game:service'VirtualInputManager':SendMouseButtonEvent(500,500, 0, false, game, 1)
+			ry(game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Marines.Frame.ViewportFrame.TextButton)
 		else
-			game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.Size = UDim2.new(0, 10000, 0, 10000)
-			game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.Position = UDim2.new(-4, 0, -5, 0)
-			game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.BackgroundTransparency = 1
-			wait(.5)
-			game:service'VirtualInputManager':SendMouseButtonEvent(500,500, 0, true, game, 1)
-			game:service'VirtualInputManager':SendMouseButtonEvent(500,500, 0, false, game, 1)
+			ry(game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton)
 		end
 	end
 until game.Players.LocalPlayer.Team ~= nil and game:IsLoaded()
@@ -7964,7 +7955,7 @@ local function Auto_Farm_Level()
 			PlayersName = string.split(string.split(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, 'Defeat')[2], ' ')[2]:gsub(' ', '')
 			for i,v in pairs(game:GetService("Workspace").Characters:GetChildren()) do
 				if string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text,v.Name) then
-					if v.Name == PlayersName and tostring(v.Data.Level.Value) >= 20 then
+					if v.Name == PlayersName then
 						repeat wait()
 							if World1 and (Vector3.new(61163.8515625, 11.6796875, 1819.7841796875) - v.HumanoidRootPart.Position).magnitude < 5000 then
 								if FarmtoTarget then FarmtoTarget:Stop() end
