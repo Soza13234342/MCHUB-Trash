@@ -9087,12 +9087,20 @@ function Auto_Farm()
 						end
 					end
 				elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BartiloQuestProgress","Bartilo") == 2 then
-					noclip = false
 					for F=1,8 do 
-						repeat wait(1);
-							toTarget(workspace.Map.Dressrosa.BartiloPlates["Plate"..F].CFrame);
-						until x:DistanceFromCharacter(workspace.Map.Dressrosa.BartiloPlates["Plate"..F].CFrame.Position)<=5 or not _G.Auto_Farm
-					end;
+						for _,v in pairs(game:GetService("Workspace").Map.Dressrosa.BartiloPlates:GetDescendants()) do
+							if v:FindFirstChild("Plate"..F) and v:FindFirstChild("Plate"..F):FindFirstChild("TouchInterest") then
+								if firetouchinterest ~= nil then
+									firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v:FindFirstChild("Plate"..F), 0)
+									firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v:FindFirstChild("Plate"..F), 1)
+								else
+									repeat wait()
+										toTarget(v:FindFirstChild("Plate"..F))
+									until not _G.Auto_Farm or not v:FindFirstChild("TouchInterest")
+								end
+							end
+						end
+					end
 				end
 			elseif World2 and game.Players.LocalPlayer.Backpack:FindFirstChild("Fist of Darkness") or game.Players.LocalPlayer.Character:FindFirstChild("Fist of Darkness") then
 				Auto_Farm_S:Set("Staus : Spawn Drakbeard")
@@ -9101,6 +9109,7 @@ function Auto_Farm()
 					toTarget(CFrame.new(3778.0603, 15.0511189, -3499.95801, -0.0148028014, 1.28971422e-07, -0.999890447, 3.63752335e-08, 1, 1.28447041e-07, 0.999890447, -3.44698741e-08, -0.0148028014))
 				until game.Workspace.Enemies:FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") or game.ReplicatedStorage:FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") or not _G.Auto_Farm
 			elseif World2 and (game:GetService("Workspace").Enemies:FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") or game:GetService("ReplicatedStorage"):FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]")) then
+				BypassTp = false
 				Auto_Farm_S:Set("Staus : Farming Drakbeard")
 				if game.Workspace.Enemies:FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") then
 					for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
@@ -9128,6 +9137,7 @@ function Auto_Farm()
 				elseif game.ReplicatedStorage:FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]") then
 					toTarget(game.ReplicatedStorage:FindFirstChild("Darkbeard [Lv. 1000] [Raid Boss]").HumanoidRootPart.CFrame*CFrame.new(0,30,0))
 				end
+				BypassTp = true
 			elseif World2 and game.Workspace.Enemies:FindFirstChild("Fajita [Lv. 925] [Boss]") or game.ReplicatedStorage:FindFirstChild("Fajita [Lv. 925] [Boss]") then
 				if game:GetService("Workspace").Enemies:FindFirstChild("Fajita [Lv. 925] [Boss]") then
 					for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
