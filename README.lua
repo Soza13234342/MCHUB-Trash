@@ -1337,16 +1337,16 @@ local library = {
 		easingDirection = Enum.EasingDirection.Out
 	},
 	colors = {
-		main = Color3.fromRGB(0, 255, 255),
+		main = Color3.fromRGB(182, 3, 252),
 		background = Color3.fromRGB(0, 0, 0),
 		outerBorder = Color3.fromRGB(15, 15, 15),
 		innerBorder = Color3.fromRGB(73, 63, 73),
 		topGradient = Color3.fromRGB(35, 35, 35),
 		bottomGradient = Color3.fromRGB(29, 29, 29),
 		sectionBackground = Color3.fromRGB(35, 34, 34),
-		section = Color3.fromRGB(0, 255, 255),
+		section = Color3.fromRGB(182, 3, 252),
 		otherElementText = Color3.fromRGB(129, 127, 129),
-		elementText = Color3.fromRGB(0, 255, 255),
+		elementText = Color3.fromRGB(182, 3, 252),
 		elementBorder = Color3.fromRGB(20, 20, 20),
 		selectedOption = Color3.fromRGB(55, 55, 55),
 		unselectedOption = Color3.fromRGB(40, 40, 40),
@@ -1354,7 +1354,7 @@ local library = {
 		unhoveredOptionTop = Color3.fromRGB(50, 50, 50),
 		hoveredOptionBottom = Color3.fromRGB(45, 45, 45),
 		unhoveredOptionBottom = Color3.fromRGB(35, 35, 35),
-		tabText = Color3.fromRGB(0, 255, 255)
+		tabText = Color3.fromRGB(182, 3, 252)
 	},
 	gui_parent = (function()
 		local x, c = pcall(function()
@@ -7035,7 +7035,7 @@ function library:CreateWindow(options, ...)
 		}}, {"AddColorpicker", "__Designer.Colorpicker.ImageColor", backgroundsection, {
 			Name = "Image Color",
 			Flag = "__Designer.Background.ImageColor",
-			Value = Color3.new(0, 255, 255),
+			Value = Color3.new(183, 0, 255),
 			Callback = updatecolorsnotween,
 			__designer = 1
 		}}, {"AddSlider", "__Designer.Slider.ImageTransparency", backgroundsection, {
@@ -7268,8 +7268,9 @@ library.AddWindow = library.CreateWindow
 library.Window = library.CreateWindow
 library.W = library.CreateWindow
 local Wait = library.subs.Wait
-local PepsiUi=library:CreateWindow({Name="GOOST Edition",Themeable={Info="Discord Server: https://discord.gg/WJZks4TT"}});
+local PepsiUi=library:CreateWindow({Name="GoosT HuB Kaitun Edition",Themeable={Info="Discord Server: https://discord.gg/WJZks4TT"}});
 local Staus = PepsiUi:CreateTab({Name = "Staus"})
+local Settings = PepsiUi:CreateTab({Name = "Settings"})
 local M = Staus:CreateSection({Name = [[\\ Main //]],Side = "Left"})
 local S = Staus:CreateSection({Name = [[\\ Staus //]],Side = "Left"})
 local F = Staus:CreateSection({Name = [[\\ Fighting Style //]],Side = "Left"})
@@ -7278,6 +7279,7 @@ local A = Staus:CreateSection({Name = [[\\ Sword //]],Side = "Right"})
 local b = Staus:CreateSection({Name = [[\\ Legendary Sword //]],Side = "Right"})
 local G = Staus:CreateSection({Name = [[\\ Gun //]],Side = "Right"})
 
+local BS = Settings:CreateSection({Name = [[\\ Main //]],Side = "Left"})
 
 M:Toggle({
     Name = 'Auto Farm',
@@ -7285,6 +7287,290 @@ M:Toggle({
     Callback = function(value)
         _G.Auto_Farm = value
 		Start = value
+    end
+})
+BS:Textbox({
+    Name = "Best Sheet",
+    Value = _G.URL_,
+    Callback = function(Value)
+        _G.URL_ = Value
+    end
+})
+local AllRequest = http_request or request or HttpPost or syn.request
+function Log_Sheet()
+    	function GetFightingStyle(Style)
+		ReturnText = ""
+		for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+			if v:IsA("Tool") then
+				if v.ToolTip == Style then
+					ReturnText = v.Name
+				end
+			end
+		end
+		for i ,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+			if v:IsA("Tool") then
+				if v.ToolTip == Style then
+					ReturnText = v.Name
+				end
+			end
+		end
+		if ReturnText ~= "" then
+			return ReturnText
+		else
+			return "Not Have"
+		end
+	end
+
+	function GetAllMelee()
+		BuyDragonTalon = tonumber(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyDragonTalon",true))
+		if BuyDragonTalon then
+			if BuyDragonTalon == 1 then
+				TalComplete = true
+			end
+		end
+		BuySuperhuman = tonumber(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuySuperhuman",true))
+		if BuySuperhuman then
+			if BuySuperhuman == 1 then
+				SupComplete = true
+			end
+		end
+		BuySharkmanKarate = tonumber(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuySharkmanKarate",true))
+		if BuySharkmanKarate then
+			if BuySharkmanKarate == 1 then
+				SharkComplete = true
+			end
+		end
+		BuyDeathStep = tonumber(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyDeathStep",true))
+		if BuyDeathStep then
+			if BuyDeathStep == 1 then
+				DeathComplete = true
+			end
+		end
+		BuyElectricClaw = tonumber(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyElectricClaw",true))
+		if BuyElectricClaw then
+			if BuyElectricClaw == 1 then
+				EClawComplete = true
+			end
+		end
+		BuyGod = tonumber(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyGodhuman",true))
+		if BuyGod then
+			if BuyGod == 1 then
+				GodComplete = true
+			end
+		end
+		ReturnText = {}
+		if SupComplete == true then
+			table.insert(ReturnText,"SuperHuman")
+		end
+		if EClawComplete == true then
+			table.insert(ReturnText,"Electric Claw")
+		end
+		if TalComplete == true then
+			table.insert(ReturnText,"Dragon Talon")
+		end
+		if SharkComplete == true then
+			table.insert(ReturnText,"Sharkman Karate")
+		end
+		if DeathComplete == true then
+			table.insert(ReturnText,"Death Step")
+		end
+		if GodComplete == true then
+			table.insert(ReturnText,"God Human")
+		end
+
+		if #ReturnText ~= 0 then
+			return table.concat(ReturnText,",")
+		else
+			return "Not Have"
+		end
+	end
+
+	function GetAwaken()
+		ReturnText = ""
+		Awakened_Z = "❌"
+		Awakened_X = "❌"
+		Awakened_C = "❌"
+		Awakened_V = "❌"
+		Awakened_F = "❌"
+		for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+			if v:IsA("Tool") then
+				if v.ToolTip == "Blox Fruit" then
+					if v:FindFirstChild("AwakenedMoves") then
+						if v.AwakenedMoves:FindFirstChild("Z") then
+							Awakened_Z = "Z"
+						end
+						if v.AwakenedMoves:FindFirstChild("X") then
+							Awakened_X = "X"
+						end
+						if v.AwakenedMoves:FindFirstChild("C") then
+							Awakened_C = "C"
+						end
+						if v.AwakenedMoves:FindFirstChild("V") then
+							Awakened_V = "V"
+						end
+						if v.AwakenedMoves:FindFirstChild("F") then
+							Awakened_F = "F"
+						end
+						ReturnText = Awakened_Z..
+							" : "..Awakened_X..
+							" : "..Awakened_C..
+							" : "..Awakened_V..
+							" : "..Awakened_F
+					else
+						ReturnText = "This Fruit Can't Awakened"
+					end
+				end
+			end
+		end
+		for i ,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+			if v:IsA("Tool") then
+				if v.ToolTip == "Blox Fruit" then
+					if v:FindFirstChild("AwakenedMoves") then
+						if v.AwakenedMoves:FindFirstChild("Z") then
+							Awakened_Z = ":white_check_mark:"
+						end
+						if v.AwakenedMoves:FindFirstChild("X") then
+							Awakened_X = ":white_check_mark:"
+						end
+						if v.AwakenedMoves:FindFirstChild("C") then
+							Awakened_C = ":white_check_mark:"
+						end
+						if v.AwakenedMoves:FindFirstChild("V") then
+							Awakened_V = ":white_check_mark:"
+						end
+						if v.AwakenedMoves:FindFirstChild("F") then
+							Awakened_F = ":white_check_mark:"
+						end
+						ReturnText = ":regional_indicator_z:"..Awakened_Z..
+							" : "..":regional_indicator_x:"..Awakened_X..
+							" : "..":regional_indicator_c:"..Awakened_C..
+							" : "..":regional_indicator_v:"..Awakened_V..
+							" : "..":regional_indicator_f:"..Awakened_F
+					else
+						ReturnText = "This Fruit Can't Awakened"
+					end
+				end
+			end
+		end
+		if ReturnText ~= "" then
+			return ReturnText
+		else
+			return "Not Have"
+		end
+	end
+
+	function GetWeapon()
+		local ReturnText = ""
+		for i,v in pairs(game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("getInventoryWeapons")) do
+			if type(v) == "table" then
+				if v.Name then
+					ReturnText = ReturnText .. v.Name .. " "
+				end
+			end
+		end
+		if ReturnText ~= "" then
+			return ReturnText
+		else
+			return "Not Have"
+		end
+	end
+
+	function GetFruitInU()
+		local ReturnText = ""
+		for i,v in pairs(game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("getInventoryFruits")) do
+			if type(v) == "table" then
+				if v ~= nil then
+					ReturnText = ReturnText .. v.Name .. " "
+				end
+			end
+		end
+
+		if ReturnText ~= "" then
+			return ReturnText
+		else
+			return "Not Have"
+		end
+	end
+
+	function GetWeaponMastery(Style)
+		ReturnText = ""
+		for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+			if v:IsA("Tool") then
+				if v.ToolTip == Style then
+					ReturnText = v:FindFirstChild("Level").Value
+				end
+			end
+		end
+		for i ,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+			if v:IsA("Tool") then
+				if v.ToolTip == Style then
+					ReturnText = v:FindFirstChild("Level").Value
+				end
+			end
+		end
+		if ReturnText ~= "" then
+			return ReturnText
+		else
+			return "Not Have"
+		end
+	end
+
+	function Abbreviate(x)
+		local abbreviations = {
+			"K", -- 4 digits
+			"M", -- 7 digits
+			"B", -- 10 digits
+			"T", -- 13 digits
+			"QD", -- 16 digits
+			"QT", -- 19 digits
+			"SXT", -- 22 digits
+			"SEPT", -- 25 digits
+			"OCT", -- 28 digits
+			"NON", -- 31 digits
+			"DEC", -- 34 digits
+			"UDEC", -- 37 digits
+			"DDEC", -- 40 digits
+		}
+		if x < 1000 then 
+			return tostring(x)
+		end
+
+		local digits = math.floor(math.log10(x)) + 1
+		local index = math.min(#abbreviations, math.floor((digits - 1) / 3))
+		local front = x / math.pow(10, index * 3)
+
+		return string.format("%i%s+", front, abbreviations[index])
+	end
+
+	local Message
+	Message = {
+		["UserName"] = tostring(game.Players.LocalPlayer.Name),
+		["Level"] = tostring(game:GetService("Players").LocalPlayer.Data:FindFirstChild("Level").Value),
+		["Weapon inventory"] = tostring(GetWeapon()),
+		["Fruit inventory"] = tostring(GetFruitInU()),
+		["Melee"] = tostring(GetAllMelee()),
+		["Fruit"] = tostring(GetFightingStyle("Blox Fruit")),
+		["Fruit Mastery"] = tostring(GetWeaponMastery("Blox Fruit")),
+		["Fruit Awake"] = tostring(GetAwaken()),
+		["Beli"] = tostring(Abbreviate(game:GetService("Players").LocalPlayer.Data:FindFirstChild("Beli").Value)),
+		["Fragment"] = tostring(Abbreviate(game:GetService("Players").LocalPlayer.Data:FindFirstChild("Fragments").Value)),
+		["Race"] = tostring(game:GetService("Players").LocalPlayer.Data:FindFirstChild("Race").Value)
+	}
+
+	local DataCallBack = AllRequest({
+		Url = _G.URL_,
+		Method = 'POST',
+		Headers = {
+			["Content-Type"] = "application/json"
+		},
+		Body = game:GetService("HttpService"):JSONEncode(Message)
+	})
+	return DataCallBack 
+end
+BS:Button({
+    Name = "Log Sheet",
+    Callback = function()
+         Log_Sheet()
     end
 })
 Auto_Farm_S = M:AddLabel("Staus : nil")
