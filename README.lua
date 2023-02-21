@@ -7314,8 +7314,8 @@ local A = Staus:CreateSection({Name = [[\\ Sword //]],Side = "Right"})
 local b = Staus:CreateSection({Name = [[\\ Legendary Sword //]],Side = "Right"})
 local G = Staus:CreateSection({Name = [[\\ Gun //]],Side = "Right"})
 
-local BS = Settings:CreateSection({Name = [[\\ Main //]],Side = "Left"})
-
+local BS = Settings:CreateSection({Name = [[\\ Best Sheet //]],Side = "Left"})
+local LOG = Settings:CreateSection({Name = [[\\ Log //]],Side = "Left"})
 M:Toggle({
     Name = 'Auto Farm',
 	Value = _G.Auto_Farm,
@@ -7331,6 +7331,216 @@ BS:Textbox({
         _G.URL_ = Value
     end
 })
+
+LOG:Button({
+	Name = "Log Description",
+	Callback = function()
+		pcall(function()
+			Nexus_Version = 101
+			loadstring(game:HttpGet'https://raw.githubusercontent.com/ic3w0lf22/Roblox-Account-Manager/master/RBX%20Alt%20Manager/Nexus/Nexus.lua')()
+			Nexus:Connect()
+		end)
+		wait(1)
+		task.spawn(mainThread)
+	end
+})
+_G.ALPORT = 7963
+_G.ALDELAY = 1
+
+if not syn then error("E3 executor not supported") end
+print("RAM desc : waiting autofarm script to load by 7 seconds")
+-- global variable
+local HttpService = game:GetService("HttpService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local player = game:GetService("Players").LocalPlayer
+local version = "0.7.2"
+local tData = { godhuman = false, soulGuitar = false, hallowScythe = false, cdk = false }
+
+local function formatNum(n)
+	if n >= 10 ^ 6 then
+		return string.format("%.2fm", n / 10 ^ 6)
+	elseif n >= 10 ^ 3 then
+		return string.format("%.2fk", n / 10 ^ 3)
+	else
+		return tostring(n)
+	end
+end
+
+local function getFruit(mastery)
+	for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+		if v:IsA("Tool") then
+			if v.ToolTip == "Blox Fruit" then
+				if mastery then return v:FindFirstChild("Level").Value end
+				return v.Name
+			end
+		end
+	end
+	for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+		if v:IsA("Tool") then
+			if v.ToolTip == "Blox Fruit" then
+				if mastery then return v:FindFirstChild("Level").Value end
+				return v.Name
+			end
+		end
+	end
+	return "none"
+end
+
+local function getFruitAwaken()
+	local data, strT, ct = { z = false, x = false, c = false, v = false, f = false }, {}, 0
+
+	for i, v in pairs(player.Backpack:GetChildren()) do
+		if v:IsA("Tool") and v.ToolTip == "Blox Fruit" then
+			if v:FindFirstChild("AwakenedMoves") and (type(v.AwakenedMoves) == "Instance" or type(v.AwakenedMoves) == "userdata") then
+				-- stylua: ignore start
+				if v.AwakenedMoves:FindFirstChild("Z") then data.z = true;table.insert(strT, "Z"); ct += 1 end
+				if v.AwakenedMoves:FindFirstChild("X") then data.x = true;table.insert(strT, "X"); ct += 1 end
+				if v.AwakenedMoves:FindFirstChild("C") then data.c = true;table.insert(strT, "C"); ct += 1 end
+				if v.AwakenedMoves:FindFirstChild("V") then data.v = true;table.insert(strT, "V"); ct += 1 end
+				if v.AwakenedMoves:FindFirstChild("F") then data.f = true;table.insert(strT, "F"); ct += 1 end
+				-- stylua: ignore end
+				return { #strT > 0 and table.concat(strT, " ") or "none", (data.z and data.x and data.c and data.v and data.f) and true or false, ct, data }
+			else
+				return { "none", false, 0, data }
+			end
+		end
+	end
+	for i, v in pairs(player.Character:GetChildren()) do
+		if v:IsA("Tool") and v.ToolTip == "Blox Fruit" then
+			if v:FindFirstChild("AwakenedMoves") and (type(v.AwakenedMoves) == "Instance" or type(v.AwakenedMoves) == "userdata") then
+				-- stylua: ignore start
+				if v.AwakenedMoves:FindFirstChild("Z") then data.z = true;table.insert(strT, "Z"); ct += 1 end
+				if v.AwakenedMoves:FindFirstChild("X") then data.x = true;table.insert(strT, "X"); ct += 1 end
+				if v.AwakenedMoves:FindFirstChild("C") then data.c = true;table.insert(strT, "C"); ct += 1 end
+				if v.AwakenedMoves:FindFirstChild("V") then data.v = true;table.insert(strT, "V"); ct += 1 end
+				if v.AwakenedMoves:FindFirstChild("F") then data.f = true;table.insert(strT, "F"); ct += 1 end
+				-- stylua: ignore end
+				return { #strT > 0 and table.concat(strT, " ") or "none", (data.z and data.x and data.c and data.v and data.f) and true or false, ct, data }
+			else
+				return { "none", false, 0, data }
+			end
+		end
+	end
+	return { "No fruit", false, 0, data }
+end
+
+local function checkGodhuman()
+	local status = ReplicatedStorage.Remotes.CommF_:InvokeServer("BuyGodhuman", true)
+	if status == 1 then tData["godHuman"] = true end
+end
+
+local function idontevenknow(v)
+	if v.Name == "Soul Guitar" and not tData["soulGuitar"] then
+		tData["soulGuitar"] = true
+	elseif v.Name == "Hallow Scythe" and not tData["hallowScythe"] then
+		tData["hallowScythe"] = true
+	elseif v.Name == "Cursed Dual Katana" and not tData["cdk"] then
+		tData["cdk"] = true
+	end
+end
+
+function mainThread()
+	if type(_G.ALPORT) ~= "number" or type(_G.ALDELAY) ~= "number" then 
+	    error(":nerd: port and delay must be a number") 
+	end
+	task.wait(ainu_devmode and 0 or 7)
+	print("RAM desc : done")
+	getgenv()["ainu_ramd_stop"] = false
+	local brek = false
+
+	while true do
+		if brek then break end
+		local ok, err = pcall(function()
+			if ainu_ramd_stop then
+				print("RAM desc : stop")
+				brek = true
+				return
+			end
+			local name, level, beli, fragment = player.Name, player.Data.Level.Value, player.Data.Beli.Value, player.Data.Fragments.Value
+			local world = game.PlaceId == 2753915549 and 1 or game.PlaceId == 4442272183 and 2 or game.PlaceId == 7449423635 and 3 or -1
+			local fruits, sword, gun = {}, {}, {}
+			local fAwaken = getFruitAwaken()
+			local alias = {}
+
+			if not tData["godHuman"] then checkGodhuman() end
+
+			for i, v in pairs(ReplicatedStorage.Remotes.CommF_:InvokeServer("getInventory")) do
+				if v.Type == "Blox Fruit" then
+					table.insert(fruits, v)
+				elseif v.Type == "Sword" then
+					table.insert(sword, v)
+					idontevenknow(v)
+				elseif v.Type == "Gun" then
+					table.insert(gun, v)
+					idontevenknow(v)
+				end
+			end
+
+			local function compare(a, b) return a.Mastery < b.Mastery and a.Rarity < b.Rarity end
+
+			table.sort(sword, compare)
+			table.sort(gun, compare)
+
+			local description = " (in player inventory)"
+			for i, v in pairs(player.Backpack:GetChildren()) do
+				if v:IsA("Tool") and v.Name ~= "Combat" then
+					description = description .. string.format("\n%s", v.Name)
+					idontevenknow(v)
+				end
+			end
+			for i, v in pairs(player.Character:GetChildren()) do
+				if v:IsA("Tool") and v.Name ~= "Combat" then
+					description = description .. string.format("\n%s", v.Name)
+					idontevenknow(v)
+				end
+			end
+
+			description = description .. "\n\n (Swords)"
+			for i, v in pairs(sword) do
+				description = description .. string.format("\n%s / %s MT", v.Name, v.Mastery)
+			end
+
+			description = description .. "\n\n (Guns)"
+			for i, v in pairs(gun) do
+				description = description .. string.format("\n%s / %s MT", v.Name, v.Mastery)
+			end
+
+			description = description .. "\n\n (Fruit awaken)\n" .. fAwaken[1]
+
+			description = description .. "\n\n (Fruits)"
+			for i, v in pairs(fruits) do
+				description = description .. string.format("\n%s", v.Name)
+			end
+
+			-- stylua: ignore
+			local desc = string.format(" Level: %s |\n World: %s |\n beli/fragment: %s/%s |\n\n%s",
+									level,
+									world,
+									formatNum(beli),
+									formatNum(fragment),
+									description)
+
+			if fAwaken[3] > 0 then table.insert(alias, string.format("%s/%s", getFruit(), fAwaken[3])) end
+			if tData["godHuman"] then table.insert(alias, "Godhuman") end
+			if tData["soulGuitar"] then table.insert(alias, "Soul Guitar") end
+			if tData["hallowScythe"] then table.insert(alias, "Hallow Scythe") end
+			if tData["cdk"] then table.insert(alias, "CDK") end
+
+			local baseEndpoint = "http://localhost:" .. tostring(_G.ALPORT)
+			syn.request({ Url = baseEndpoint .. "/SetDescription?Account=" .. name, Method = "POST", Body = desc })
+			if #alias > 0 then syn.request({ Url = baseEndpoint .. "/SetAlias?Account=" .. name, Method = "POST", Body = table.concat(alias, ",") }) end
+		end)
+
+		if not ok then
+			local errMsg = string.format("%s\n----------------------\n%s", err, debug.traceback())
+			local errJ = { client = "ram desc", version = version, ["error"] = errMsg }
+			syn.request({ Url = "https://ainu.pp021.cf/submit", Method = "POST", Headers = { ["Content-Type"] = "application/json" }, Body = game:GetService("HttpService"):JSONEncode(errJ) })
+		end
+		task.wait(ainu_devmode and 2.5 or _G.ALDELAY)
+	end
+end
+
+
 local AllRequest = http_request or request or HttpPost or syn.request
 function Log_Sheet()
     	function GetFightingStyle(Style)
