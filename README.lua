@@ -22,7 +22,10 @@ repeat wait()
 		end
 	end
 until game.Players.LocalPlayer.Team ~= nil and game:IsLoaded()
-
+_G.Log = {
+    ['Enabled'] = false,
+    ['Delay'] = 30
+}
 function FPSBooster()
     local decalsyeeted = true
     local g = game
@@ -7331,10 +7334,25 @@ BS:Textbox({
         _G.URL_ = Value
     end
 })
-
-LOG:Button({
+LOG:Toggle({
 	Name = "Log Description",
-	Callback = function()
+	Value = _G.Log["Enabled"],
+	Callback = function(value)
+		_G.Log["Enabled"] = value
+	end
+})
+LOG:Slider({
+	Name = "Delay",
+	Value = _G.Log["Delay"], -- ค่าที่ให้เลือก
+	Min = 1, -- น้อยสุด
+	Max = 100, -- มากสุด
+	Format = "Delay : %s%%",
+	Callback = function(value)
+		_G.Log["Delay"] = value
+	end
+})
+task.spawn(function()
+	if _G.Log["Enabled"] then
 		pcall(function()
 			Nexus_Version = 101
 			loadstring(game:HttpGet'https://raw.githubusercontent.com/ic3w0lf22/Roblox-Account-Manager/master/RBX%20Alt%20Manager/Nexus/Nexus.lua')()
@@ -7343,7 +7361,7 @@ LOG:Button({
 		wait(1)
 		task.spawn(mainThread)
 	end
-})
+end)
 _G.ALPORT = 7963
 _G.ALDELAY = 1
 
