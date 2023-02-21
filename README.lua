@@ -9057,7 +9057,7 @@ function Auto_Farm()
 							EquipWeapon("Torch")
 						elseif game.Players.LocalPlayer.Character:FindFirstChild("Torch") then
 							repeat wait()
-								toTarget(game:GetService("Workspace").Map.Desert.Burn.Fire.CFrame*CFrame.new(0,0,2))
+								toTarget(game:GetService("Workspace").Map.Desert.Burn.Fire.CFrame*CFrame.new(0,0,3))
 							until game:GetService("Workspace").Map.Desert.Burn.Part.Transparency == 0 or not _G.Auto_Farm
 						end
 					end
@@ -10784,14 +10784,11 @@ task.spawn(function()
 	game:GetService("RunService").Stepped:Connect(function()
 		pcall(function()
 			if _G.Auto_Farm or noclip then
-				if syn then
-					setfflag("HumanoidParallelRemoveNoPhysics", "False")
-					setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False")
-					game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
-					if game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit == true then
-						game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit = false
-					end
-				else
+				-- if syn then
+				-- 	setfflag("HumanoidParallelRemoveNoPhysics", "False")
+				-- 	setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False")
+				-- 	game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+				-- else
 					if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 						if not game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyVelocity1") then
 							if game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Sit == true then
@@ -10809,7 +10806,7 @@ task.spawn(function()
 							v.CanCollide = false    
 						end
 					end
-				end
+				--end
 			else
 				if game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyVelocity1") then
 					game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyVelocity1"):Destroy();
