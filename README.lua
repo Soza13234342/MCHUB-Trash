@@ -8082,7 +8082,7 @@ local function Auto_Farm_Level()
 								repeat wait()
 									if World1 and (Vector3.new(61163.8515625, 11.6796875, 1819.7841796875) - v.HumanoidRootPart.Position).magnitude < 5000 then
 										if FarmtoTarget then FarmtoTarget:Stop() end
-										game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(61163.8515625, 11.6796875, 1819.7841796875))
+										Com("F_","AbandonQuest");
 									elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 150 then
 										FarmtoTarget = toTarget(v.HumanoidRootPart.CFrame)
 									elseif v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 150 then
@@ -8120,6 +8120,8 @@ local function Auto_Farm_Level()
 									end
 								until not _G.Auto_Farm or not _G.Settings.Main["Fast Auto Farm Level"]  or not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text,v.Name) or v.Humanoid.Health <= 0 or not v.Parent or GetQuest.Visible == false
 							end
+						else
+							Com("F_","AbandonQuest");
 						end
 					end
 				else
